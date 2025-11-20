@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: peelocar-dashboard
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_URL=https://autoecole.mojay.pro
+    restart: unless-stopped
+    networks:
+      - dashboard-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+networks:
+  dashboard-network:
+    driver: bridge

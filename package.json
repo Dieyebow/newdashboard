@@ -1,13 +1,19 @@
 {
-  "name": "newdashboard",
+  "name": "peelocar-dashboard",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Modern dashboard for PeeloCar driving school management",
+  "author": "Mamadou DIEYE <dieyebow@gmail.com>",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "type-check": "tsc -b --noEmit",
+    "clean": "rm -rf dist node_modules/.vite",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "build:prod": "npm run type-check && npm run build"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.10",
