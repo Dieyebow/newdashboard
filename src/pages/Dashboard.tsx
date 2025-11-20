@@ -15,9 +15,9 @@ export default function Dashboard() {
     queryFn: () => apiService.getGrowth(),
   });
 
-  const { data: recentTests } = useQuery({
-    queryKey: ['recentTests'],
-    queryFn: () => apiService.getRecentTests(10),
+  const { data: testsStats } = useQuery({
+    queryKey: ['testsStats'],
+    queryFn: () => apiService.getTestsStats(),
   });
 
   const { data: leaderboard } = useQuery({
@@ -99,22 +99,34 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </div>
 
-        {/* Recent Tests */}
+        {/* Tests Statistics */}
         <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Tests récents</h3>
-          <div className="space-y-3">
-            {((recentTests as any)?.recentTests || []).slice(0, 5).map((test: any) => (
-              <div key={test._id} className="flex items-center justify-between py-2 border-b border-gray-100">
-                <div>
-                  <p className="font-medium text-gray-900">{test.student_name || test.tel}</p>
-                  <p className="text-sm text-gray-500">{test.autoecole}</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-semibold text-primary-600">{test.score}</p>
-                  <p className="text-xs text-gray-500">{test.answers} questions</p>
-                </div>
-              </div>
-            ))}
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Statistiques des tests</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 bg-blue-50 rounded-lg">
+              <p className="text-sm text-gray-600 mb-1">Score moyen</p>
+              <p className="text-2xl font-bold text-blue-600">
+                {((testsStats as any)?.stats?.avgScore || 0).toFixed(1)}
+              </p>
+            </div>
+            <div className="p-4 bg-green-50 rounded-lg">
+              <p className="text-sm text-gray-600 mb-1">Score maximum</p>
+              <p className="text-2xl font-bold text-green-600">
+                {(testsStats as any)?.stats?.maxScore || 0}
+              </p>
+            </div>
+            <div className="p-4 bg-purple-50 rounded-lg">
+              <p className="text-sm text-gray-600 mb-1">Total tests</p>
+              <p className="text-2xl font-bold text-purple-600">
+                {(testsStats as any)?.stats?.totalTests || 0}
+              </p>
+            </div>
+            <div className="p-4 bg-orange-50 rounded-lg">
+              <p className="text-sm text-gray-600 mb-1">Total réponses</p>
+              <p className="text-2xl font-bold text-orange-600">
+                {(testsStats as any)?.stats?.totalAnswers || 0}
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -150,10 +150,6 @@ class ApiService {
     return this.request({ method: 'GET', url: '/dashboard/tests/stats' });
   }
 
-  async getRecentTests(limit = 20) {
-    return this.request({ method: 'GET', url: '/dashboard/tests/recent', params: { limit } });
-  }
-
   async getLeaderboard(limit = 10) {
     return this.request({ method: 'GET', url: '/dashboard/tests/leaderboard', params: { limit } });
   }
