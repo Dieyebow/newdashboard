@@ -20,6 +20,10 @@ class ApiService {
         const token = localStorage.getItem('auth_token');
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
+          console.log('🔑 Token envoyé:', token.substring(0, 20) + '...');
+          console.log('📡 Requête vers:', config.url);
+        } else {
+          console.warn('⚠️ Aucun token trouvé dans localStorage');
         }
         return config;
       },
@@ -34,8 +38,13 @@ class ApiService {
       (error) => {
         if (error.response?.status === 401) {
           // Token expired or invalid
+          console.error('❌ 401 Unauthorized - Token invalide ou expiré');
           localStorage.removeItem('auth_token');
           window.location.href = '/login';
+        } else if (error.response?.status === 403) {
+          console.error('❌ 403 Forbidden - Accès refusé');
+          console.error('URL:', error.config?.url);
+          console.error('Réponse:', error.response?.data);
         }
         return Promise.reject(error);
       }
