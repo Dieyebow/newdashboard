@@ -13,7 +13,8 @@
     "type-check": "tsc -b --noEmit",
     "clean": "rm -rf dist node_modules/.vite",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
-    "build:prod": "npm run type-check && npm run build"
+    "build:prod": "npm run type-check && npm run build",
+    "localdeploy": "bash scripts/local-deploy.sh"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.10",
