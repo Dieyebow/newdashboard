@@ -101,7 +101,11 @@ export default function Students() {
                     <td className="py-3 px-4">
                       <p className="font-medium text-gray-900">{student.fullname}</p>
                       {student.home_ec && (
-                        <p className="text-sm text-gray-500">{student.home_ec}</p>
+                        <p className="text-sm text-gray-500">
+                          {typeof student.home_ec === 'object' && student.home_ec.title
+                            ? student.home_ec.title
+                            : student.home_ec}
+                        </p>
                       )}
                     </td>
                     <td className="py-3 px-4 text-gray-700">{student.tel}</td>

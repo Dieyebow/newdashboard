@@ -43,7 +43,7 @@ export interface Student {
   tel: string;
   name_autoecole: string;
   tel_autoecole: string;
-  home_ec?: string;
+  home_ec?: string | { id: string; title: string };
   created_at: string;
 }
 
