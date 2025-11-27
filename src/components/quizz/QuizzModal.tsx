@@ -62,29 +62,31 @@ export default function QuizzModal({ quizz, isOpen, onClose, mode }: QuizzModalP
                         </div>
                       )}
 
-                      <div className="space-y-2">
-                        <p className="text-sm font-semibold text-gray-700">Réponses :</p>
-                        {question.buttons.map((button) => (
-                          <div
-                            key={button.id}
-                            className={`p-3 rounded-lg border-2 ${
-                              button.id === question.answer.text
-                                ? 'border-green-500 bg-green-50'
-                                : 'border-gray-200 bg-white'
-                            }`}
-                          >
-                            <div className="flex items-center">
-                              <span className="font-semibold text-sm mr-2">{button.id.toUpperCase()}.</span>
-                              <span className="text-sm">{button.title}</span>
-                              {button.id === question.answer.text && (
-                                <span className="ml-auto text-xs font-semibold text-green-600">
-                                  ✓ Bonne réponse
-                                </span>
-                              )}
+                      {question.buttons && question.buttons.length > 0 && (
+                        <div className="space-y-2">
+                          <p className="text-sm font-semibold text-gray-700">Réponses :</p>
+                          {question.buttons.map((button, btnIndex) => (
+                            <div
+                              key={button.id || btnIndex}
+                              className={`p-3 rounded-lg border-2 ${
+                                button.id === question.answer?.text
+                                  ? 'border-green-500 bg-green-50'
+                                  : 'border-gray-200 bg-white'
+                              }`}
+                            >
+                              <div className="flex items-center">
+                                <span className="font-semibold text-sm mr-2">{button.id?.toUpperCase() || ''}.</span>
+                                <span className="text-sm">{button.title || 'Sans titre'}</span>
+                                {button.id === question.answer?.text && (
+                                  <span className="ml-auto text-xs font-semibold text-green-600">
+                                    ✓ Bonne réponse
+                                  </span>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                      </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
