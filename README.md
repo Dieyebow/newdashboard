@@ -117,7 +117,9 @@ Le dashboard consomme l'API PeeloCar avec les endpoints suivants:
 - `GET /dashboard/autoecoles/stats` - Statistiques des auto-écoles
 - `GET /dashboard/tests/leaderboard` - Classement des élèves
 
-Voir la documentation API complète pour tous les endpoints disponibles.
+### Documentation complète des API
+
+Pour la documentation détaillée de tous les endpoints de l'API (incluant les opérations CRUD complètes pour les quiz, cours, élèves, etc.), consultez le fichier [API_DOCUMENTATION.md](./API_DOCUMENTATION.md).
 
 ## 🎨 Fonctionnalités par page
 
