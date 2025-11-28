@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { FileQuestion, Plus, TrendingUp } from 'lucide-react';
 import apiService from '../services/api';
 import QuizzCard from '../components/quizz/QuizzCard';
@@ -10,6 +10,7 @@ export default function Quizz() {
   const [selectedQuizz, setSelectedQuizz] = useState<QuizzType | null>(null);
   const [modalMode, setModalMode] = useState<'view' | 'edit'>('view');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const queryClient = useQueryClient();
 
   const { data: quizzData, isLoading } = useQuery({
     queryKey: ['quizz'],
@@ -38,6 +39,23 @@ export default function Quizz() {
     setSelectedQuizz(response.quizz);
     setModalMode('edit');
     setIsModalOpen(true);
+  };
+
+  const handleSave = async (updatedQuizz: QuizzType) => {
+    try {
+      await apiService.updateQuizz(updatedQuizz._id, updatedQuizz);
+
+      // Invalidate and refetch queries
+      queryClient.invalidateQueries({ queryKey: ['quizz'] });
+      queryClient.invalidateQueries({ queryKey: ['quizzStats'] });
+      queryClient.invalidateQueries({ queryKey: ['popularQuizz'] });
+
+      setIsModalOpen(false);
+      alert('Quiz mis à jour avec succès!');
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du quiz:', error);
+      alert('Erreur lors de la mise à jour du quiz');
+    }
   };
 
   const quizzList = (quizzData as any)?.quizz || [];
@@ -142,6 +160,7 @@ export default function Quizz() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         mode={modalMode}
+        onSave={handleSave}
       />
     </div>
   );

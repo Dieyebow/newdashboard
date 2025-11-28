@@ -49,17 +49,22 @@ export interface Student {
 
 // Quiz Types
 export interface QuizzButton {
-  id: string;
+  id?: string; // Optional for backward compatibility
+  value: string; // "true" or "false" to indicate if it's the correct answer
   title: string;
+}
+
+export interface QuizzAnswer {
+  text: string;
+  audio?: string; // URL to the answer audio explanation
 }
 
 export interface QuizzQuestion {
   text: string;
-  image?: string;
+  image?: string; // URL to the question image
+  audio?: string; // URL to the question audio
   buttons: QuizzButton[];
-  answer: {
-    text: string;
-  };
+  answer: QuizzAnswer;
 }
 
 export interface Quizz {

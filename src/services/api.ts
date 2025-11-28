@@ -142,6 +142,10 @@ class ApiService {
     return this.request({ method: 'GET', url: '/dashboard/quizz/popular', params: { limit } });
   }
 
+  async updateQuizz(id: string, data: any) {
+    return this.request({ method: 'PUT', url: `/dashboard/quizz/${id}`, data });
+  }
+
   // Tests
   async getTestsCount() {
     return this.request({ method: 'GET', url: '/dashboard/tests/count' });
