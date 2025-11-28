@@ -87,6 +87,14 @@ export default function QuizzModal({ quizz, isOpen, onClose, mode }: QuizzModalP
                           ))}
                         </div>
                       )}
+
+                      {/* Affichage du JSON brut */}
+                      <div className="mt-4">
+                        <p className="text-xs font-semibold text-gray-700 mb-2">JSON brut :</p>
+                        <pre className="bg-gray-900 text-green-400 p-3 rounded text-xs overflow-x-auto">
+                          {JSON.stringify(question, null, 2)}
+                        </pre>
+                      </div>
                     </div>
                   ))}
                 </div>
